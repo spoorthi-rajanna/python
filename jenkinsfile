@@ -37,7 +37,6 @@ pipeline {
             steps {
                 echo 'uploading to nexus....'
 
-#nexusPublisher nexusInstanceId: '12345', nexusRepositoryId: 'nexus_test', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'testing.tar.gz']], mavenCoordinate: [artifactId: '${JOB_NAME}', groupId: 'Hellow-world.app', packaging: 'war', version: '1.0.${BUILD_NUMBER}']]]    
 nexusPublisher nexusInstanceId: '12345', nexusRepositoryId: 'nexus_test', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'build/appPKG-00.pkg']], mavenCoordinate: [artifactId: '${JOB_NAME}', groupId: 'pythonApp', packaging: 'pkg', version: '1.0.${BUILD_NUMBER}']]]
             }
 
