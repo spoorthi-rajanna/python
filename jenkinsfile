@@ -1,80 +1,34 @@
 pipeline {
     agent any
-
-        tools {
-        maven 'apache-maven-3.6' 
-    }
-
-
     stages {
-        stage('Checkout') {
+        stage('Build') {
+
             steps {
-                echo 'starting checkout'
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/mibrahim2019/ec2.git']]])
+                sh 'python -m py_compile app.py config.py fabfile.py forms.py models.py'
             }
         }
-
-
-        stage ('Compile Stage') {
+        stage('Test') { 
 
             steps {
-
-                //withMaven(maven : 'apache-maven-3.6') {
-                    sh 'mvn clean compile package'
-                }
+                sh 'py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py' 
             }
-        
-
-
-
-       stage('build && SonarQube analysis') {
-            steps {
-
-                script {
-
-                        scannerHome = tool 'sonar-scanner'
-
-                }
-                withSonarQubeEnv('sonarqube-6') {
-                      sh "${scannerHome}/bin/sonar-scanner -D sonar.projectKey=sonarqube_test_project"
-                    }
-                }
-            }
-
-        
-        stage("Quality Gate status check") {
-            steps {
-                timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate abortPipeline: true
+            post {
+                always {
+                    junit 'test-reports/results.xml' 
                 }
             }
         }
         
+                stage('Deliver') {
 
-
-
-         stage('nexus') {
             steps {
-                echo 'uploading to nexus....'
-
-nexusPublisher nexusInstanceId: '12345', nexusRepositoryId: 'nexus_test', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'testing.tar.gz']], mavenCoordinate: [artifactId: '${JOB_NAME}', groupId: 'Hellow-world.app', packaging: 'war', version: '1.0.${BUILD_NUMBER}']]]    
-
+                sh 'pyinstaller --onefile app.py'
             }
-
-        } 
-        
-
-        
-
-
-        stage('Deploy') {
-            steps {
-                sh """ 
-                # wget "http://3.9.43.71:8081/repository/nexus_test/Hellow-world/app/test1/1.0.${BUILD_NUMBER}/test1-1.0.${BUILD_NUMBER}.war"
-                
-                """
-                
-sshPublisher(publishers: [sshPublisherDesc(configName: 'ansuble_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/home/ansadmin/', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'test1/target/*.jar')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false), sshPublisherDesc(configName: 'ansuble_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'ansible-playbook /home/ansadmin/deploy.yml', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])            }
+            post {
+                success {
+                    archiveArtifacts 'dist/app'
+                }
+            }
         }
     }
 }
