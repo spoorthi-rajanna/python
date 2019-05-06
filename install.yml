@@ -1,0 +1,8 @@
+---
+- hosts: web
+  become: true
+  tasks:
+    - name: copy jar to server i am deploying to
+      copy:
+        src: /var/lib/jenkins/workspace/TEST3/TEST3-1.0.29.pkg
+        dest: /home/ansadmin/moDest
