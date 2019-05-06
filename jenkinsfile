@@ -46,7 +46,7 @@ nexusPublisher nexusInstanceId: '12345', nexusRepositoryId: 'nexus_test', packag
             steps {
                 sh """ 
                 wget "http://3.9.43.71:8081/repository/nexus_test/pythonApp/TEST3/1.0.${BUILD_NUMBER}/TEST3-1.0.${BUILD_NUMBER}.pkg"
-                sudo scp TEST3-1.0.29.pkg ansadmin@172.31.28.19:/home/ansadmin
+                scp TEST3-1.0.29.pkg ansadmin@172.31.28.19:/home/ansadmin
 
                 
                 """
