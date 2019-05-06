@@ -46,6 +46,8 @@ nexusPublisher nexusInstanceId: '12345', nexusRepositoryId: 'nexus_test', packag
             steps {
                 sh """ 
                 wget "http://3.9.43.71:8081/repository/nexus_test/pythonApp/TEST3/1.0.${BUILD_NUMBER}/TEST3-1.0.${BUILD_NUMBER}.pkg"
+                sudo scp TEST3-1.0.29.pkg ansadmin@172.31.28.19:/home/ansadmin
+
                 
                 """
                 sshPublisher(publishers: [sshPublisherDesc(configName: 'ansuble_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: 'moDest', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'TEST3/build/app/* .pkg'), sshTransfer(cleanRemote: false, excludes: '', execCommand: 'ansible-playbook deploy.yml', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
