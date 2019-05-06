@@ -54,3 +54,4 @@ sshPublisher(publishers: [sshPublisherDesc(configName: 'ansuble_server', transfe
         }
     }
 }
+}
