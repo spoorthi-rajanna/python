@@ -49,7 +49,6 @@ nexusPublisher nexusInstanceId: '12345', nexusRepositoryId: 'nexus_test', packag
                 
                 """
                 
-sshPublisher(publishers: [sshPublisherDesc(configName: 'ansuble_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '/home/ansadmin/', remoteDirectorySDF: false, removePrefix: '', sourceFiles: 'test1/target/*.jar')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false), sshPublisherDesc(configName: 'ansuble_server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'ansible-playbook /home/ansadmin/deploy.yml', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])            
 }
         
         }
