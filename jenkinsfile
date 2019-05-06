@@ -7,7 +7,7 @@ pipeline {
                 sh 'python -m py_compile app.py config.py fabfile.py forms.py models.py'
             }
         }
-        stage('Test') { 
+        /* stage('Test') { 
 
             steps {
                 sh 'py.test --verbose --junit-xml test-reports/results.xml app.py config.py fabfile.py forms.py models.py' 
@@ -19,7 +19,8 @@ pipeline {
             }
         }
         
-                stage('Deliver') {
+         */
+         /* stage('Deliver') {
 
             steps {
                 sh 'pyinstaller --onefile app.py'
@@ -29,6 +30,6 @@ pipeline {
                     archiveArtifacts 'dist/app'
                 }
             }
-        }
+        } */
     }
 }
