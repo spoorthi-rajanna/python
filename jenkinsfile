@@ -20,7 +20,7 @@ pipeline {
         }  */
         
          
-          stage('Deliver') {
+          stage('Package') {
 
             steps {
                 sh 'pyinstaller --onefile app.py'
