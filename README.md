@@ -1,4 +1,4 @@
-Jenkins: http://3.9.57.174:8080/job/test1/
+Jenkins: http://3.9.57.174:8080/job/Imagination_python_project/
 username: admin
 password: 0fbcb68e09214376bc3f516739eb4abe
 
