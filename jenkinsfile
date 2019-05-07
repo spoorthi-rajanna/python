@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
 
             steps {
-                sh 'python -m py_compile app.py config.py fabfile.py forms.py models.py'
+                sh 'python -m py_compile app.py'
             }
         }
           stage('Test') { 
