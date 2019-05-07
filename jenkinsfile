@@ -4,13 +4,13 @@ pipeline {
         stage('Build') {
 
             steps {
-                sh 'python -m py_compile app.py'
+                sh 'python -m py_compile app.py config.py fabfile.py forms.py models.py'
             }
         }
           stage('Test') { 
 
             steps {
-                sh 'py.test --verbose --junit-xml test-reports/results.xml app.py' 
+                sh 'py.test --verbose --junit-xml test-reports/results.xml app.py config.py fabfile.py forms.py models.py' 
             }
             post {
                 always {
