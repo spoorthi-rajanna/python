@@ -49,7 +49,7 @@ nexusPublisher nexusInstanceId: '12345', nexusRepositoryId: 'nexus_test', packag
          stage('Deploy') {
             steps {
                 sh """ 
-                wget "http://3.9.43.71:8081/repository/nexus_test/pythonApp/TEST3/1.0.${BUILD_NUMBER}/TEST3-1.0.${BUILD_NUMBER}.pkg"
+                wget "http://3.9.43.71:8081/repository/nexus_test/pythonApp/Imagination_python_project/1.0.${BUILD_NUMBER}App.0.${BUILD_NUMBER}.pkg"
 
                 
                 """
