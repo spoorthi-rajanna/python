@@ -25,11 +25,11 @@ pipeline {
             steps {
                 sh 'pyinstaller --onefile app.py'
             }
-            post {
+          /*  post {
                 success {
                     archiveArtifacts 'dist/app'
                 }
-            }
+            } */
         } 
 
 
