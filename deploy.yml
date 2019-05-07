@@ -1,0 +1,8 @@
+---
+- hosts: web
+  become: true
+  tasks:
+    - name: copy jar to server i am deploying to
+      copy:
+        src: /var/lib/jenkins/workspace/test1/target/1234-1.0.jar
+        dest: /home/ec2-user/
