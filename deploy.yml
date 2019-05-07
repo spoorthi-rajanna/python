@@ -1,8 +1,8 @@
 ---
-- hosts: web
+- hosts: tomc
   become: true
   tasks:
-    - name: copy jar to server i am deploying to
+    - name: copy war to server i am deploying to
       copy:
-        src: /var/lib/jenkins/workspace/test1/target/1234-1.0.jar
-        dest: /home/ec2-user/
+        src:  /var/lib/jenkins/workspace/TEST3/build/app/PKG-00.pkg
+        dest: /home/ansadmin/moDest
